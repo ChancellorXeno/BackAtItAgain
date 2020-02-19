@@ -138,3 +138,24 @@ body {
 }
 
 /* stemmen.html */
+#container-stemmen {
+	margin: 0 auto;
+	width: 930px;
+	height: auto;
+    margin-top: 25px;
+	background-color: white;
+}
+#inner-container {
+	margin: 0 auto;
+	width: 930px;
+	height: auto;
+    margin-top: 25px;
+	background-color: white;
+}
+.arrow-img {
+    width: 50px;
+    height: 50px;
+    margin: 20px;
+}
+
+/* stemwijzer.dvc */
