@@ -6,21 +6,18 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="container-stemmen">
-        <a class="arrow" href="stemwijzer.html"><img class="arrow-img" src="images/arrow.png"></a>
-        <div id="inner-container">
-          <button class="choice_buttons" onclick="load_statement(pro)">Agree</button>
-          <button class="choice_buttons" onclick="load_statement(contra)">Disagree</button>
-          <button class="choice_buttons" onclick="load_statement(none)">No opinion</button>
-          <button class="choice_buttons" onclick="load_statement(skip)">Skip</button>
-        </div>
+  <div id="container-stemmen">
+    <a id="backbutton" href="#"><img class="arrow" src="images/arrow.png" onclick="back()"></a>
+    <div id="inner-container">
+      <h1 id="stellingtitle">The title should be here.</h1>
+      <h3 id="stellingstatement">The statement should be here.</h3>
+      <button class="choicebuttons" onclick="choose(pro)">Agree</button>
+      <button class="choicebuttons" onclick="choose(contra)">Disagree</button>
+      <button class="choicebuttons" onclick="choose(neither)">No opinion</button>
+      <button class="choicebuttons" onclick="choose(skip)">Skip</button>
     </div>
+  </div>
 </body>
-<<<<<<< HEAD
-<script src="script.js"></script>
-<script src="stemwijzer.dvc-icta.nl/data.js"></script>
-=======
-<script src="data_array.js"></script>
-<script src="choice.js"></script>
->>>>>>> master
+  <script src="data_array.js"></script>
+  <script src="choice.js"></script>
 </html>
