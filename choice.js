@@ -6,6 +6,8 @@ var contra = "contra"; // disagree
 var neither = "none";
 var skip = "skipped";
 
+var proCount = [];
+
 load_statement(counter);
 function load_statement(choice){
     stellingtitle.innerText = subjects[counter].title;
@@ -23,6 +25,7 @@ function choose(choice){
         console.log(counter)
     }else {
         console.log('I need to change the page now.');
+        PointCount();
     }
 }
 
@@ -34,6 +37,52 @@ function back(){
         backbutton.href= "homepage.html"
     }
 }
+
+function PointCount() {
+    for (var i = 0; i < 30; i++) {
+        if (answers[i] == 'pro') {
+            subjects[i]['parties'].forEach(function (value, key) {
+                if (value['position'] == 'pro') {
+                    proCount.push()
+                }
+            });
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // tryna remember
 
