@@ -6,6 +6,7 @@ var contra = "contra"; // disagree
 var neither = "none";
 var skip = "skipped";
 
+var answerCount = [];
 var proCount = [];
 
 load_statement(counter);
@@ -40,10 +41,12 @@ function back(){
 
 function PointCount() {
     for (var i = 0; i < 30; i++) {
-        if (answers[i] == 'pro') {
+        if (answerCount[i] == 'pro') {
             subjects[i]['parties'].forEach(function (value, key) {
                 if (value['position'] == 'pro') {
                     proCount.push()
+                    console.log(i);
+                    console.log('test');
                 }
             });
         }
