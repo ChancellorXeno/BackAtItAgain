@@ -6,6 +6,7 @@ var contra = "contra"; // disagree
 var neither = "none";
 var skip = "skipped";
 
+var parties = [[],[]]; // multidimentional array
 var PVVsame = 0;
 
 load_statement(counter);
@@ -17,41 +18,64 @@ function load_statement(choice){
 function choose(choice){
     if(counter !== 29){
         choices[counter] = choice
-        
-        
+
         console.log(choices)
 
-        /* console.log(subjects[counter].parties[1]);
-        if(subjects[counter].parties[1].position == "pro"){
-            console.log("fuck yes it works");
-            console.log(subjects[counter].parties[1].position);
-        } */
+        // for (var positionCheck = 0; positionCheck < 23; positionCheck++){
 
-        for (var positionCheck = 0; positionCheck < 23; positionCheck++){
-            if(subjects[counter].parties[positionCheck].name == "PVV"){
-                console.log(positionCheck + ' %c is PVV ', 'background: green; color: white; display: block;');
-                if(subjects[counter].parties[positionCheck].position == "pro"){
-                    console.log('%c This is pro ', 'background: blue; color: white; display: block;');
-                    if(choices[counter] == "pro"){
-                        PVVsame++;
-                        console.log('me and PVV agree on ' + PVVsame + ' statements so far.');
-                    }
+        //     if(subjects[counter].parties[positionCheck].name == "PVV"){
+        //        console.log(positionCheck + ' %c is PVV ', 'background: green; color: white; display: block;');
+        //        if(subjects[counter].parties[positionCheck].position == "pro"){
+        //            console.log('%c This is pro ', 'background: blue; color: white; display: block;');
+            
+        //             if(choices[counter] == subjects[counter].parties[positionCheck].position){
+        //                 PVVsame++;
+        //                 console.log('me and PVV agree on ' + PVVsame + ' statements so far.');
 
-                }else{
-                    console.log('%c This is not pro ', 'background: red; color: white; display: block;');
-                    if(choices[counter] == "contra"){
-                        PVVsame++;
-                        console.log('me and PVV agree on ' + PVVsame + ' statements so far.');
-                    }
-                }
-            }else{ 
-                console.log(positionCheck + ' is not PVV');
-            }
-        }
+        //                 // parties[subjects[counter].parties[positionCheck].name][positionCheck] = 1;
+        //             }else{
+        //                 console.log('me and PVV agree on ' + PVVsame + ' statements so far.');
+                        
+        //                 // parties[subjects[counter].parties[positionCheck].name][positionCheck] = 0;
+        //             }
+
+        //          }else{
+        //             console.log('%c This is contra ', 'background: red; color: white; display: block;');
+        //             if(choices[counter] == "contra"){
+        //                 PVVsame++;
+        //                 console.log('me and PVV agree on ' + PVVsame + ' statements so far.');
+        //             }else{
+        //                 console.log('me and PVV agree on ' + PVVsame + ' statements so far.');
+        //             }
+        //         }
+        //     }else{ 
+        //         console.log(positionCheck + ' is not PVV');
+        //     } 
+        // }
+        console.log(parties);
         counter++
         load_statement(counter)
     }else {
         console.log('I need to change the page now.');
+    }
+}
+
+function choose(choice) {
+
+    choices[counter] = choice;
+
+    for (var i = 0; i < 30; i++) {
+        subjects[i]['parties'].forEach(function (value, key) {
+            console.log(value['name'],value['position']); 
+            if (choice[i] === value['position']) {
+                for (var a = 0; a < partiesName.length; a++) {
+                    if (value['name'] === partiesName[a]['name']) {
+                        partiesName[a]['score'] = partiesName[a]['score'] + 1;
+                    }
+                }
+            }
+        });
+
     }
 }
 
