@@ -15,11 +15,7 @@ function load_statement(choice){
 function choose(choice){
     if(counter !== 29){
         choices[counter] = choice
-
         console.log(choices);
-
-        
-        // console.log(parties);
         counter++
         load_statement(counter);
     }else {
@@ -30,20 +26,18 @@ function choose(choice){
 function calc_results(){
     var scores = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
     console.log(subjects);
-    for (var StatementCounter = 0; StatementCounter < 29; StatementCounter++){
-        for (var positionCheck = 0; positionCheck < 23; positionCheck++){
+    for (var StatementCounter = 0; StatementCounter < 29; StatementCounter++){ // 29 statements it loops trough
+        for (var positionCheck = 0; positionCheck < 23; positionCheck++){ // 23 parties it loops through
             console.log(subjects[StatementCounter].parties[positionCheck].position)
-            if(choices[StatementCounter] == subjects[StatementCounter].parties[positionCheck].position){
+            if(choices[StatementCounter] == subjects[StatementCounter].parties[positionCheck].position){ // if my choice is the same as the party's choice
                 var partyposition = getpartyposition(subjects[StatementCounter].parties[positionCheck].name);
                 scores[partyposition]++;
-                //document.write(subjects[StatementCounter].parties[positionCheck].name);
                 console.log(scores);
             }
         }
     }
-    stellingtitle.innerText = "Resultaten";
+    stellingtitle.innerText = "Results";
     stellingstatement.innerText = scores.toString();
-    document.write(subjects[StatementCounter].parties[positionCheck].name); //werkt niet
     
 }
 
@@ -61,7 +55,7 @@ function back(){
         counter--
         load_statement(counter)
     }else {
-        backbutton.href= "homepage.html"
+        backbutton.href = "homepage.html"
     }
 }
 
