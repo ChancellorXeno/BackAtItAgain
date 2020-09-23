@@ -6,12 +6,12 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 #container {
-	margin: 0 auto;
-	width: 930px;
-	height: auto;
+        margin: 0 auto;
+        width: 930px;
+        height: auto;
     padding: 70px 116px 0px 116px;
     margin-top: 25px;
-	background-color: white;
+        background-color: white;
 }
 .logo {
     background-image: url(images/stemwijzer-logo.png);
@@ -80,7 +80,7 @@ body {
     padding: 46px 92px 35px 92px;
     border-top: dotted grey;
     margin: 0 auto;
-	background-color: white;
+        background-color: white;
 }
 .stemmentracker-img {
     width: 381px;
@@ -136,24 +136,28 @@ body {
 .bottom_logo {
     width: 50px;
 }
-
+ 
 /* stemmen.html */
 #container-stemmen {
-	margin: 0 auto;
-	width: 930px;
-	height: auto;
+    margin: 0 auto;
+    width: 925.35px;
+    height: auto;
     margin-top: 25px;
-	background-color: white;
+    background-color: white;
+    border-radius: 5px;
 }
 .arrow {
     width: 50px;
     height: 50px;
     margin: 20px;
 }
-#stellingtitle{
+#stellingtitle {
     padding: 0px 20px 0px 20px;
 }
-#stellingstatement{
+#stellingstatement {
+    padding: 0px 20px 20px 20px;
+}
+#checkbox {
     padding: 0px 20px 20px 20px;
 }
 .choicebuttons {
@@ -168,5 +172,22 @@ body {
     padding: 11px 9px;
     border-radius: 5px;
     border-style: none;
-    margin: 25px 20px 25px 20px;
+    margin: 25px 20px 20px 20px;
+}
+#selection {
+    margin-left: 20px;
+}
+#selection_button {
+    background-color: black;
+    width: 188px;
+    height: 68px;
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    transition: background-color .2s ease;
+    display: inline-block;
+    padding: 11px 9px;
+    border-radius: 5px;
+    border-style: none;
+    margin: 25px 20px 20px 0px;
 }
