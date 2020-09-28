@@ -7,12 +7,9 @@ var neither = "none";
 var skip = "skipped";
 var scores = [];
 var statement = [];
-var big = document.getElementById('selection_big');
-var secular = document.getElementById('selection_secular');
-var bigsecular = '';
-
-
-document.getElementById('selection').style.display = 'none';
+var big = false;
+var secular = false;
+var both = false;
  
 load_statement();
 function load_statement(){
@@ -28,23 +25,36 @@ function choose(choice){
     }else{
         choices[counter] = choice
         counter++
-        document.getElementById('button-container').style.display = "none";
+        document.getElementById('button4').style.display = "none";
         selection();
     }
 }
 
 function selection(){
-    stellingtitle.innerHTML = 'Vink aan van welke partijen u uw resultaten te zien wilt krijgen';
+    stellingtitle.innerHTML = 'Welke partijen wilt u te zien krijgen?';
     stellingstatement.innerHTML = '';
-    document.getElementById('selection').style.display = 'block';
-    document.getElementById('selection_button').addEventListener('click', calc_results);
+    document.getElementById('button1').innerHTML = 'Big';
+    document.getElementById('button1').addEventListener('click', big_selected)
+    document.getElementById('button2').innerHTML = 'Secular';
+    document.getElementById('button2').addEventListener('click', secular_selected);
+    document.getElementById('button3').innerHTML = 'Both';
+    document.getElementById('button3').addEventListener('click', both_selected);
 }
-function bigselection(bigparty) {
-    return bigparty == parties.secular;
+function big_selected(){
+    big = true;
+    calc_results()
+}
+function secular_selected(){
+    secular = true;
+    calc_results()
+}
+function both_selected(){
+    both = true;
+    calc_results()
 }
 
 function weight(){  // not currently functional
-    stellingtitle.innerHTML = 'Vink de stellingen aan die u extra gewicht wilt geven'
+    stellingtitle.innerHTML = 'Vink de stellingen aan die u extra gewicht wilt geven';
     stellingstatement.innerHTML = '';
     for(var positionCheck = 0; positionCheck < 23; positionCheck++){
  
@@ -59,16 +69,15 @@ function weight(){  // not currently functional
 }
  
 function calc_results(){
-    document.getElementById('selection').style.display = 'none';
+    document.getElementById('button-container').style.display = 'none';
     console.log(choices);
-
-    if(big.checked == true){
-        bigsecular += 'big';
+ // working on this now
+    for (var i = 0; i < 23; i++) { // if party is secular = console log .name
+        if(parties[i].secular == true){
+            console.log(parties[i].name);
+        }
     }
-    if(secular.checked == true){
-        bigsecular += 'secular';
-    }
-
+// ^^
     for (var positionCheck = 0; positionCheck < 23; positionCheck++){
         scores.push([parties[positionCheck].name, 0]); // inserts all parties into array
     }
@@ -94,20 +103,19 @@ function calc_results(){
     for (var percentageCounter = 0; percentageCounter < 23; percentageCounter++){
         scores[percentageCounter][1] = scores[percentageCounter][1] / 30 * 100;
         scores[percentageCounter][1] = scores[percentageCounter][1].toFixed(2);
-        stellingstatement.innerHTML += scores[percentageCounter][0] + ' ' + scores[percentageCounter][1] + '% <br>'; // Displays results
+        // Here I need to decide on what was selected
+        if(big == true){
+            if(parties[percentageCounter].secular == false){
+                stellingstatement.innerHTML += scores[percentageCounter][0] + ' ' + scores[percentageCounter][1] + '% <br>'; // Displays result
+            }
+        }else if(secular == true){
+            if(parties[percentageCounter].secular == true){
+                stellingstatement.innerHTML += scores[percentageCounter][0] + ' ' + scores[percentageCounter][1] + '% <br>'; // Displays result
+            }
+        }else if(both == true){
+            stellingstatement.innerHTML += scores[percentageCounter][0] + ' ' + scores[percentageCounter][1] + '% <br>'; // Displays result
+        }
     }
-
-    // selection() will be implemented here
-    if(bigsecular == 'big'){
-        console.log('big');
-    }else if(bigsecular == 'secular'){
-        console.log('secular');
-    }else if(bigsecular == 'bigsecular'){
-        console.log('bigsecular');
-    }else{
-        console.log('Why would you even?');
-    }
-    // End of selection() implementation
 }
  
 function getpartyposition(partyname){ // checks what position the party belongs to in the scores array
