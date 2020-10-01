@@ -42,42 +42,33 @@ function selection(){
 }
 function big_selected(){
     big = true;
-    calc_results()
+    weight();
 }
 function secular_selected(){
     secular = true;
-    calc_results()
+    weight();
 }
 function both_selected(){
     both = true;
-    calc_results()
+    weight();
 }
 
-function weight(){  // not currently functional
+function weight(){  // currently working on this
+    document.getElementById('button-container').style.display = 'none';
     stellingtitle.innerHTML = 'Vink de stellingen aan die u extra gewicht wilt geven';
     stellingstatement.innerHTML = '';
-    for(var positionCheck = 0; positionCheck < 23; positionCheck++){
- 
-        var x = document.createElement("INPUT");
-        x.setAttribute("type", "checkbox");
-        document.body.appendChild(x);
- 
+    for(var positionCheck = 0; positionCheck < 30; positionCheck++){
         statement.push([subjects[positionCheck].title, 1]);
-        checkboxid.innerHTML += 'Checkbox ' + statement[positionCheck][0] + '<br>';
+        stellingstatement.innerHTML += '<img class=\"checkbox_button\" id=\"checkbox' + positionCheck + '\" src=\"http://placehold.jp/25x25.png\" width=\"25px\" height=\"25px\" onclick=\"' + function test(){ weight_calc(positionCheck) } + '\">' + statement[positionCheck][0] + '<br>';
     }
-    console.log(statement);
 }
- 
+function weight_calc(position){
+    console.log(position);
+}
 function calc_results(){
-    document.getElementById('button-container').style.display = 'none';
+    document.getElementById('backbutton').style.display = 'none';
     console.log(choices);
- // working on this now
-    for (var i = 0; i < 23; i++) { // if party is secular = console log .name
-        if(parties[i].secular == true){
-            console.log(parties[i].name);
-        }
-    }
-// ^^
+
     for (var positionCheck = 0; positionCheck < 23; positionCheck++){
         scores.push([parties[positionCheck].name, 0]); // inserts all parties into array
     }
@@ -103,16 +94,17 @@ function calc_results(){
     for (var percentageCounter = 0; percentageCounter < 23; percentageCounter++){
         scores[percentageCounter][1] = scores[percentageCounter][1] / 30 * 100;
         scores[percentageCounter][1] = scores[percentageCounter][1].toFixed(2);
-        // Here I need to decide on what was selected
         if(big == true){
-            if(parties[percentageCounter].secular == false){
+            if(parties[percentageCounter].size >= 10){
                 stellingstatement.innerHTML += scores[percentageCounter][0] + ' ' + scores[percentageCounter][1] + '% <br>'; // Displays result
             }
-        }else if(secular == true){
+        }
+        if(secular == true){
             if(parties[percentageCounter].secular == true){
                 stellingstatement.innerHTML += scores[percentageCounter][0] + ' ' + scores[percentageCounter][1] + '% <br>'; // Displays result
             }
-        }else if(both == true){
+        }
+        if(both == true){
             stellingstatement.innerHTML += scores[percentageCounter][0] + ' ' + scores[percentageCounter][1] + '% <br>'; // Displays result
         }
     }
@@ -124,13 +116,15 @@ function getpartyposition(partyname){ // checks what position the party belongs 
             return positionCheck;
         }
     }
-    return undefined; // if no party with said name is found (shouldn't happen)
 }
  
 function back(){
     if(counter !== 0){
         counter--
-        load_statement(counter)
+        load_statement(counter);
+        big = false;
+        secular = false;
+        both = false;
     }else {
         backbutton.href = "homepage.html"
     }
