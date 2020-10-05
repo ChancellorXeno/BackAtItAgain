@@ -10,7 +10,8 @@ var statement = [];
 var big = false;
 var secular = false;
 var both = false;
- 
+var fat = [];
+
 load_statement();
 function load_statement(){
     stellingtitle.innerHTML = subjects[counter].title;
@@ -18,19 +19,30 @@ function load_statement(){
 }
  
 function choose(choice){
-    if(counter < 29){ // 30th choice is in the else statement
+    button1.style.backgroundColor = 'black';
+    button2.style.backgroundColor = 'black';
+    button3.style.backgroundColor = 'black';
+    button4.style.backgroundColor = 'black';
+    if(checkbox.checked == true){
+        fat[counter] = 2;
+    }else {
+        fat[counter] = 1;
+    }
+        if(counter < 29){ // 30th choice is in the else statement
         choices[counter] = choice
         counter++
         load_statement(counter);
+        checkbox.checked = false;
     }else{
         choices[counter] = choice
         counter++
         document.getElementById('button4').style.display = "none";
         selection();
     }
-}
+}   
 
 function selection(){
+    checkbox.style.display = 'none';
     stellingtitle.innerHTML = 'Welke partijen wilt u te zien krijgen?';
     stellingstatement.innerHTML = '';
     document.getElementById('button1').innerHTML = 'Big';
@@ -42,31 +54,20 @@ function selection(){
 }
 function big_selected(){
     big = true;
-    weight();
+    calc_results();
 }
 function secular_selected(){
     secular = true;
-    weight();
+    calc_results();
 }
 function both_selected(){
     both = true;
-    weight();
+    calc_results();
 }
 
-function weight(){  // currently working on this
-    document.getElementById('button-container').style.display = 'none';
-    stellingtitle.innerHTML = 'Vink de stellingen aan die u extra gewicht wilt geven';
-    stellingstatement.innerHTML = '';
-    for(var positionCheck = 0; positionCheck < 30; positionCheck++){
-        statement.push([subjects[positionCheck].title, 1]);
-        stellingstatement.innerHTML += '<img class=\"checkbox_button\" id=\"checkbox' + positionCheck + '\" src=\"http://placehold.jp/25x25.png\" width=\"25px\" height=\"25px\" onclick=\"' + function test(){ weight_calc(positionCheck) } + '\">' + statement[positionCheck][0] + '<br>';
-    }
-}
-function weight_calc(position){
-    console.log(position);
-}
 function calc_results(){
-    document.getElementById('backbutton').style.display = 'none';
+    backbutton.style.display = 'none';
+    button_container.style.display = 'none';
     console.log(choices);
 
     for (var positionCheck = 0; positionCheck < 23; positionCheck++){
@@ -76,10 +77,13 @@ function calc_results(){
     for (var StatementCounter = 0; StatementCounter < 30; StatementCounter++){ // 30 statements it loops trough
         for (var positionCheck = 0; positionCheck < 23; positionCheck++){ // 23 parties it loops through
             if(choices[StatementCounter] == subjects[StatementCounter].parties[positionCheck].position){ // if my choice is the same as the party's choice
-                var partyname = subjects[StatementCounter].parties[positionCheck].name;
-                var partyindex = getpartyposition(partyname);
-                var oldscore = scores[partyindex];
-                oldscore[1] ++;
+                var oldscore = scores[getpartyposition(subjects[StatementCounter].parties[positionCheck].name)];
+                console.log(oldscore);
+                if(fat[StatementCounter] == 2){
+                    oldscore[1] = oldscore[1]+2;
+                }else{
+                    oldscore[1] ++;
+                }
                 stellingtitle.innerHTML = 'Resultaten'
                 stellingstatement.innerHTML = '';
             }
@@ -117,9 +121,31 @@ function getpartyposition(partyname){ // checks what position the party belongs 
         }
     }
 }
- 
+
+function CheckTheBox(){
+    if(checkbox.checked == false){
+        checkbox.checked = true;
+    }else{
+    checkbox.checked = false;
+    }
+}
 function back(){
+    button1.style.backgroundColor = 'black';
+    button2.style.backgroundColor = 'black';
+    button3.style.backgroundColor = 'black';
+    button4.style.backgroundColor = 'black';
     if(counter !== 0){
+        if(choices[counter] == "pro"){
+            button1.style.backgroundColor = 'teal';
+        }else if(choices[counter] == "contra"){
+            button2.style.backgroundColor = 'teal';
+        }else if(choices[counter] == "neither"){
+            button3.style.backgroundColor = 'teal';
+        }else if(choices[counter] == "skip"){
+            button4.style.backgroundColor = 'teal';
+        }else{
+            console.log("The first time I click the back button, it doesn't color the button.");
+        }
         counter--
         load_statement(counter);
         big = false;

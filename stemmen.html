@@ -8,15 +8,14 @@
 <body>
   <div id="container-stemmen">
     <a id="backbutton" href="#"><img class="arrow" src="images/arrow.png" onclick="back()"></a>
-    <div id="inner-container">
-      <h1 id="stellingtitle">The title should be here.</h1>
-      <h3 id="stellingstatement">The statement should be here.</h3>
-      <div id="button-container">
-        <button id="button1" class="choicebuttons" onclick="choose(pro)">Agree</button>
-        <button id="button2" class="choicebuttons" onclick="choose(contra)">Disagree</button>
-        <button id="button3" class="choicebuttons" onclick="choose(neither)">No opinion</button>
-        <button id="button4" class="choicebuttons" onclick="choose(skip)">Skip</button>
-      </div>
+    <h1 id="stellingtitle">The title should be here.</h1>
+    <h3 id="stellingstatement">The statement should be here.</h3>
+    <div id="button_container">
+      <input type="checkbox" id="checkbox"><p onclick="CheckTheBox()">Extra gewicht toevoegen aan deze vraag?</p> <br>
+      <button id="button1" class="choicebuttons" onclick="choose(pro)">Agree</button>
+      <button id="button2" class="choicebuttons" onclick="choose(contra)">Disagree</button>
+      <button id="button3" class="choicebuttons" onclick="choose(neither)">No opinion</button>
+      <button id="button4" class="choicebuttons" onclick="choose(skip)">Skip</button>
     </div>
   </div>
   <div id="container-results">
