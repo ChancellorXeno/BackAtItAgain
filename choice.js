@@ -28,7 +28,7 @@ function choose(choice){
     }else {
         fat[counter] = 1;
     }
-        if(counter < 29){ // 30th choice is in the else statement
+    if(counter < 29){ // 30th choice is in the else statement
         choices[counter] = choice
         counter++
         load_statement(counter);
@@ -135,17 +135,6 @@ function back(){
     button3.style.backgroundColor = 'black';
     button4.style.backgroundColor = 'black';
     if(counter !== 0){
-        if(choices[counter] == "pro"){
-            button1.style.backgroundColor = 'teal';
-        }else if(choices[counter] == "contra"){
-            button2.style.backgroundColor = 'teal';
-        }else if(choices[counter] == "neither"){
-            button3.style.backgroundColor = 'teal';
-        }else if(choices[counter] == "skip"){
-            button4.style.backgroundColor = 'teal';
-        }else{
-            console.log("The first time I click the back button, it doesn't color the button.");
-        }
         counter--
         load_statement(counter);
         big = false;
@@ -153,5 +142,16 @@ function back(){
         both = false;
     }else {
         backbutton.href = "homepage.html"
+    }
+    if(choices[counter] == "pro"){
+        button1.style.backgroundColor = 'teal';
+    }else if(choices[counter] == "contra"){
+        button2.style.backgroundColor = 'teal';
+    }else if(choices[counter] == "none"){
+        button3.style.backgroundColor = 'teal';
+    }else if(choices[counter] == "skipped"){
+        button4.style.backgroundColor = 'teal';
+    }else{
+        console.log("The first time I click the back button it doesn't color the button.");
     }
 }
