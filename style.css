@@ -6,12 +6,12 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 #container {
-        margin: 0 auto;
-        width: 930px;
-        height: auto;
+    margin: 0 auto;
+    width: 930px;
+    height: auto;
     padding: 70px 116px 0px 116px;
     margin-top: 25px;
-        background-color: white;
+    background-color: white;
 }
 .logo {
     background-image: url(images/stemwijzer-logo.png);

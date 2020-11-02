@@ -6,11 +6,14 @@ var contra = "contra"; // disagree
 var neither = "none";
 var skip = "skipped";
 var scores = [];
-var statement = [];
+var bigScores = [];
+var secularScores = [];
 var big = false;
 var secular = false;
 var both = false;
 var fat = [];
+var sorted = false;
+
 
 load_statement();
 function load_statement(){
@@ -36,21 +39,22 @@ function choose(choice){
     }else{
         choices[counter] = choice
         counter++
-        document.getElementById('button4').style.display = "none";
+        button4.style.display = "none";
         selection();
     }
 }   
 
 function selection(){
     checkbox.style.display = 'none';
+    checkboxText.style.display = 'none';
     stellingtitle.innerHTML = 'Welke partijen wilt u te zien krijgen?';
     stellingstatement.innerHTML = '';
-    document.getElementById('button1').innerHTML = 'Big';
-    document.getElementById('button1').addEventListener('click', big_selected)
-    document.getElementById('button2').innerHTML = 'Secular';
-    document.getElementById('button2').addEventListener('click', secular_selected);
-    document.getElementById('button3').innerHTML = 'Both';
-    document.getElementById('button3').addEventListener('click', both_selected);
+    button1.innerHTML = 'Big';
+    button1.addEventListener('click', big_selected)
+    button2.innerHTML = 'Secular';
+    button2.addEventListener('click', secular_selected);
+    button3.innerHTML = 'Both';
+    button3.addEventListener('click', both_selected);
 }
 function big_selected(){
     big = true;
@@ -72,6 +76,7 @@ function calc_results(){
 
     for (var positionCheck = 0; positionCheck < 23; positionCheck++){
         scores.push([parties[positionCheck].name, 0]); // inserts all parties into array
+        console.log(scores);
     }
    
     for (var StatementCounter = 0; StatementCounter < 30; StatementCounter++){ // 30 statements it loops trough
@@ -89,31 +94,51 @@ function calc_results(){
             }
         }
     }
- 
-    sort_percentage();
-    function sort_percentage(){
-        scores.sort(function(a, b){return b[1] - a[1]});
-    }
-   
-    for (var percentageCounter = 0; percentageCounter < 23; percentageCounter++){
-        scores[percentageCounter][1] = scores[percentageCounter][1] / 30 * 100;
-        scores[percentageCounter][1] = scores[percentageCounter][1].toFixed(2);
+
+    for (var statementCounter = 0; statementCounter < 23; statementCounter++){
+        console.log('statementCounter' + statementCounter);
+        scores[statementCounter][1] = scores[statementCounter][1] / 30 * 100;
+        scores[statementCounter][1] = scores[statementCounter][1].toFixed(2);
         if(big == true){
-            if(parties[percentageCounter].size >= 10){
-                stellingstatement.innerHTML += scores[percentageCounter][0] + ' ' + scores[percentageCounter][1] + '% <br>'; // Displays result
+            if(parties[statementCounter].size >= 10){
+                bigScores.push([scores[statementCounter][0], scores[statementCounter][1]]); // pushes the 1st letter
+                if(sorted == false){
+                    bigScores.sort(function(a, b){return b[1] - a[1]});
+                    sorted = true;
+                }else{
+                    console.log(bigScores);
+                    // stellingstatement.innerHTML += bigScores[statementCounter][0] + ' ' + bigScores[statementCounter][1] + '% <br>'; // Displays result
+                }
             }
         }
         if(secular == true){
-            if(parties[percentageCounter].secular == true){
-                stellingstatement.innerHTML += scores[percentageCounter][0] + ' ' + scores[percentageCounter][1] + '% <br>'; // Displays result
+            if(sorted == false){
+                secularScores.sort(function(a, b){return b[1] - a[1]}); // broken
+                sorted = true;
             }
+            if(parties[statementCounter].secular == true){
+                secularScores.push([scores[statementCounter][0], scores[statementCounter][1]]);
+            }
+            
         }
         if(both == true){
-            stellingstatement.innerHTML += scores[percentageCounter][0] + ' ' + scores[percentageCounter][1] + '% <br>'; // Displays result
+            if(sorted == false){
+                scores.sort(compareNumbers);
+                sorted = true;
+            }else{
+                console.log(scores);
+            }
         }
     }
+    printResults(secularScores);
 }
- 
+
+function printResults(results){
+    for (var statementCounter = 0; statementCounter < results.length; statementCounter++){
+        stellingstatement.innerHTML += results[statementCounter][0] + ' ' + results[statementCounter][1] + '% <br>';
+    }
+}
+
 function getpartyposition(partyname){ // checks what position the party belongs to in the scores array
     for (var positionCheck = 0; positionCheck < 23; positionCheck++){
         if(parties[positionCheck].name == partyname){
@@ -141,7 +166,7 @@ function back(){
         secular = false;
         both = false;
     }else {
-        backbutton.href = "homepage.html"
+        backbutton.href = "homepage.html";
     }
     if(choices[counter] == "pro"){
         button1.style.backgroundColor = 'teal';
@@ -152,6 +177,6 @@ function back(){
     }else if(choices[counter] == "skipped"){
         button4.style.backgroundColor = 'teal';
     }else{
-        console.log("The first time I click the back button it doesn't color the button.");
+        return undefined;
     }
 }
