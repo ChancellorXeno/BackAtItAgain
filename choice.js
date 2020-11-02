@@ -45,6 +45,7 @@ function choose(choice){
 }   
 
 function selection(){
+    backbutton.style.display = 'none';
     checkbox.style.display = 'none';
     checkboxText.style.display = 'none';
     stellingtitle.innerHTML = 'Welke partijen wilt u te zien krijgen?';
@@ -70,7 +71,6 @@ function both_selected(){
 }
 
 function calc_results(){
-    backbutton.style.display = 'none';
     button_container.style.display = 'none';
     console.log(choices);
 
@@ -101,13 +101,11 @@ function calc_results(){
         scores[statementCounter][1] = scores[statementCounter][1].toFixed(2);
         if(big == true){
             if(parties[statementCounter].size >= 10){
-                bigScores.push([scores[statementCounter][0], scores[statementCounter][1]]); // pushes the 1st letter
                 if(sorted == false){
                     bigScores.sort(function(a, b){return b[1] - a[1]});
                     sorted = true;
                 }else{
-                    console.log(bigScores);
-                    // stellingstatement.innerHTML += bigScores[statementCounter][0] + ' ' + bigScores[statementCounter][1] + '% <br>'; // Displays result
+                    bigScores.push([scores[statementCounter][0], scores[statementCounter][1]]);
                 }
             }
         }
@@ -123,14 +121,19 @@ function calc_results(){
         }
         if(both == true){
             if(sorted == false){
-                scores.sort(compareNumbers);
+                scores.sort(function(a, b){return b[1] - a[1]});
                 sorted = true;
             }else{
-                console.log(scores);
+                stellingstatement.innerHTML += scores[statementCounter][0] + ' ' + scores[statementCounter][1] + '% <br>';
             }
         }
     }
-    printResults(secularScores);
+    if(big == true){
+        printResults(bigScores);
+    }
+    if(secular == true){
+        printResults(secularScores);
+    }
 }
 
 function printResults(results){
@@ -151,7 +154,7 @@ function CheckTheBox(){
     if(checkbox.checked == false){
         checkbox.checked = true;
     }else{
-    checkbox.checked = false;
+        checkbox.checked = false;
     }
 }
 function back(){
