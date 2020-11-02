@@ -101,19 +101,10 @@ function calc_results(){
         scores[statementCounter][1] = scores[statementCounter][1].toFixed(2);
         if(big == true){
             if(parties[statementCounter].size >= 10){
-                if(sorted == false){
-                    bigScores.sort(function(a, b){return b[1] - a[1]});
-                    sorted = true;
-                }else{
-                    bigScores.push([scores[statementCounter][0], scores[statementCounter][1]]);
-                }
+                bigScores.push([scores[statementCounter][0], scores[statementCounter][1]]);
             }
         }
         if(secular == true){
-            if(sorted == false){
-                secularScores.sort(function(a, b){return b[1] - a[1]}); // broken
-                sorted = true;
-            }
             if(parties[statementCounter].secular == true){
                 secularScores.push([scores[statementCounter][0], scores[statementCounter][1]]);
             }
@@ -138,6 +129,7 @@ function calc_results(){
 
 function printResults(results){
     for (var statementCounter = 0; statementCounter < results.length; statementCounter++){
+        results.sort(function(a, b){return b[1] - a[1]});
         stellingstatement.innerHTML += results[statementCounter][0] + ' ' + results[statementCounter][1] + '% <br>';
     }
 }
